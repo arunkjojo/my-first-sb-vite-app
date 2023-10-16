@@ -22,5 +22,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: sb-build
-          folder: ./storybook-static
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
