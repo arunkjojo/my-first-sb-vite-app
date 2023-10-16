@@ -3,24 +3,27 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches:
-      - main  # Adjust this based on your repository's main branch
+      - main # Adjust this based on your repository's main branch
 
 jobs:
   deploy:
+    name: Deploy
+    needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build Storybook
-      run: npm run build-storybook
+      - name: Build Storybook
+        run: npm run build-storybook
 
-    - name: Deploy to GitHub Pages
-      uses: arunkjojo/github-pages-deploy-action@4.1.5
-      with:
-        branch: sb-build
-        folder: build
+      - name: Deploy to GitHub Pages
+        uses: arunkjojo/github-pages-deploy-action@4.1.5
+        with:
+          branch: sb-build
+          folder: storybook-static
